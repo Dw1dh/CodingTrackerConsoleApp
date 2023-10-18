@@ -16,3 +16,11 @@
 
 
 //CODING TRACKER
+
+using CodingTrackerConsoleApp.Data;
+
+internal class Program {
+    private static void Main(string[] args) {
+        CodingRepository.Init();
+    }
+}
