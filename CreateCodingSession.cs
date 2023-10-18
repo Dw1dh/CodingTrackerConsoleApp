@@ -33,6 +33,8 @@ namespace CodingTrackerConsoleApp {
             duration = duration.AddHours(-startTime.Hour);        // 7:33
             duration = duration.AddMinutes(-startTime.Minute);
             Console.WriteLine($"Duration: {duration}");
+
+            CodingRepository.Create( startTime, endTime, duration );
         }
     }
 }

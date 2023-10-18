@@ -31,7 +31,7 @@ namespace CodingTrackerConsoleApp.Data {
 
         private static void CreateTable() {
             try {
-                cmd.CommandText = $"CREATE TABLE IF NOT EXISTS {tableName}(Id INTEGER PRIMARY KEY AUTOINCREMENT, StartTime TEXT NOT NULL, EndTime TEXT NOT NULL)";
+                cmd.CommandText = $"CREATE TABLE IF NOT EXISTS {tableName}(Id INTEGER PRIMARY KEY AUTOINCREMENT, StartTime TEXT NOT NULL, EndTime TEXT NOT NULL, Duration TEXT NOT NULL)";
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Table was initialized");
             }
@@ -40,8 +40,13 @@ namespace CodingTrackerConsoleApp.Data {
             }
 
         }
-        private void Create(DateTime StartTime, DateTime EndTime) {
-            
+        private void Create(TimeOnly startTime, TimeOnly endTime, TimeOnly duration) {
+            cmd.Parameters.AddWithValue(":StartTime", startTime.ToShortTimeString());
+            cmd.Parameters.AddWithValue(":EndTime", endTime.ToShortTimeString());
+            cmd.Parameters.AddWithValue(":Duration", duration.ToShortTimeString());
+
+            cmd.CommandText = $"INSERT INTO {tableName} (StartTime, EndTime, Duration) VALUES (:StartTime, :EndTime, :Duration)";
+            cmd.ExecuteNonQuery();
         }
 
     }
