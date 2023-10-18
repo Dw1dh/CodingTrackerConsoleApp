@@ -18,9 +18,42 @@
 //CODING TRACKER
 
 using CodingTrackerConsoleApp.Data;
+using System.Linq.Expressions;
 
 internal class Program {
     private static void Main(string[] args) {
         CodingRepository.Init();
+        MainMenu();
+    }
+    private static void MainMenu() {
+        Console.WriteLine("\nThis is a Coding Tracker Console App");
+        Console.WriteLine("MAIN MENU");
+        Console.WriteLine("---------------------------");
+        Console.WriteLine("What would you like to do?");
+        Console.WriteLine("0 - Close the application\n1 - Create a coding session\n2 - Delete coding session\n3 - Read coding sessions");
+        try {
+            int userInput = Convert.ToInt32(Console.ReadLine());
+            switch (userInput) {
+                case 0:
+
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                default:
+                    throw new Exception("Please choose one of the options.");
+            }
+        }
+        catch (Exception ex){
+            Console.WriteLine($"Error in choice: {ex.Message}\nTry again\n");
+            MainMenu();
+        }
+        
     }
 }
