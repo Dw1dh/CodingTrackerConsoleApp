@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CodingTrackerConsoleApp.Data {
     public class CodingRepository {
-        private string dbFileName = "codingdb.sqlite";
+        private static string dbFileName = "codingdb.sqlite";
         private static SQLiteConnection conn;
         private static SQLiteCommand cmd;
-        private string tableName = "CodingSessions";
+        private static string tableName = "CodingSessions";
         //static void Main(string[] args) {
         //    Init();
         //}
