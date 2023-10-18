@@ -17,6 +17,7 @@
 
 //CODING TRACKER
 
+using CodingTrackerConsoleApp;
 using CodingTrackerConsoleApp.Data;
 using System.Linq.Expressions;
 
@@ -35,16 +36,17 @@ internal class Program {
             int userInput = Convert.ToInt32(Console.ReadLine());
             switch (userInput) {
                 case 0:
-
+                    Console.WriteLine("Goodbye");
+                    Console.ReadLine();
                     break;
                 case 1:
-
+                    CreateCodingSession.CreateSession();
                     break;
                 case 2:
-
+                    new DeleteCodingSession();
                     break;
                 case 3:
-
+                    new ViewCodingSessions();
                     break;
                 default:
                     throw new Exception("Please choose one of the options.");
