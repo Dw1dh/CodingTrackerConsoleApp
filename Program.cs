@@ -36,7 +36,6 @@ internal class Program {
             switch (userInput) {
                 case 0:
                     Console.WriteLine("Goodbye");
-                    Console.ReadLine();
                     break;
                 case 1:
                     CreateCodingSession.CreateSession();

@@ -68,21 +68,19 @@ namespace CodingTrackerConsoleApp.Data {
             //cmd.ExecuteNonQuery();
         }
             public static void Delete(int id) {
-            var codingSession = from c in codingSessions
-                        where c.Id == id
-                        select c;
-            codingSessions.Remove((CodingSession)codingSession);
+            CodingSession codingSession = codingSessions.Where(x => x.Id == id).First();
+            codingSessions.Remove(codingSession);
+            Console.WriteLine("Successfully removed");
         }
         public static void Read() {
             try {
                 foreach (CodingSession codingSession in codingSessions) {
-                    Console.WriteLine($"ID: {codingSession.Id}\n");
-                    Console.WriteLine($"Start Time: {codingSession.StartTime}\n");
-                    Console.WriteLine($"End Time: {codingSession.EndTime}\n");
-                    Console.WriteLine($"Duration: {codingSession.Duration}\n\n");
+                    Console.WriteLine($"ID: {codingSession.Id}\t");
+                    Console.WriteLine($"Start Time: {codingSession.StartTime}\t");
+                    Console.WriteLine($"End Time: {codingSession.EndTime}\t");
+                    Console.WriteLine($"Duration: {codingSession.Duration}\n");
 
                 }
-                Program.MainMenu();
             } catch(Exception ex) {
                 Console.WriteLine($"Error in reading coding sessions: {ex.Message}");
                 Program.MainMenu();
