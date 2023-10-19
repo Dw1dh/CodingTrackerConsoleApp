@@ -26,7 +26,7 @@ internal class Program {
         CodingRepository.Init();
         MainMenu();
     }
-    private static void MainMenu() {
+    public static void MainMenu() {
         Console.WriteLine("\nThis is a Coding Tracker Console App");
         Console.WriteLine("MAIN MENU");
         Console.WriteLine("---------------------------");
@@ -46,7 +46,7 @@ internal class Program {
                     new DeleteCodingSession();
                     break;
                 case 3:
-                    new ViewCodingSessions();
+                    ReadCodingSessions.Read();
                     break;
                 default:
                     throw new Exception("Please choose one of the options.");

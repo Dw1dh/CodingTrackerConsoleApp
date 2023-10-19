@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CodingTrackerConsoleApp.Data;
+using CodingTrackerConsoleApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,7 @@ namespace CodingTrackerConsoleApp {
         static TimeOnly startTime;
         static TimeOnly endTime;
         static TimeOnly duration;
+        static int Id = 0;
         public static void CreateSession() {
             Console.WriteLine("Creation new coding session");
             Console.WriteLine("----------------------------");
@@ -29,12 +32,23 @@ namespace CodingTrackerConsoleApp {
                 Console.WriteLine($"Error in creation: {ex.Message}\nTry again");
                 CreateSession();
             }
-            duration = endTime;
-            duration = duration.AddHours(-startTime.Hour);        // 7:33
-            duration = duration.AddMinutes(-startTime.Minute);
-            Console.WriteLine($"Duration: {duration}");
+            try {
+                duration = endTime;
+                duration = duration.AddHours(-startTime.Hour);        // 7:33
+                duration = duration.AddMinutes(-startTime.Minute);
+                Console.WriteLine($"Duration: {duration}");
+            } catch (Exception ex) {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            CodingSession codingSession = new CodingSession {
+                Id = Id,
+                StartTime = startTime,
+                EndTime = endTime,
+                Duration = duration
+            };
 
-            CodingRepository.Create( startTime, endTime, duration );
+            CodingRepository.Create(codingSession);
+            Program.MainMenu();
         }
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CodingTrackerConsoleApp.Model {
     public class CodingSession {
-        int Id {
+        public int Id {
         get; set; }
-        int StartTime {
+        public TimeOnly StartTime {
         get; set; }
-        int EndTime {
+        public TimeOnly EndTime {
         get; set; }
-        int Duration {
+        public TimeOnly Duration {
         get; set; }
     }
 }
