@@ -18,7 +18,7 @@ using CodingTrackerConsoleApp;
 
 internal class Program {
 
-    private static void Main(string[] args) {
+    public static void Main(string[] args) {
         MainMenu();
     }
 
@@ -36,15 +36,15 @@ internal class Program {
                     break;
 
                 case 1:
-                    CreateCodingSession.CreateSession();
+                    CRUDController.Create();
                     break;
 
                 case 2:
-                    DeleteCodingSession.Delete();
+                    CRUDController.Delete();
                     break;
 
                 case 3:
-                    ReadCodingSessions.Read();
+                    CRUDController.Read();
                     break;
 
                 default:

@@ -4,15 +4,12 @@ using ConsoleTableExt;
 namespace CodingTrackerConsoleApp.Data {
 
     public class CodingRepository {
-        private static List<CodingSession> codingSessions = new List<CodingSession>();
+        public static List<CodingSession> codingSessions = new List<CodingSession>();
+        public static int Id = 1;
 
         public static void Create(CodingSession codingSession) {
-            try {
                 codingSessions.Add(codingSession);
-            }
-            catch (Exception ex) {
-                Console.WriteLine($"Error in creating a new coding session: {ex.Message}");
-            }
+
         }
 
         public static void Delete(int id) {
@@ -22,7 +19,6 @@ namespace CodingTrackerConsoleApp.Data {
         }
 
         public static void Read() {
-            try {
                 if (codingSessions.Count > 0) {
                     ConsoleTableBuilder.From(codingSessions)
                         .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
@@ -42,21 +38,11 @@ namespace CodingTrackerConsoleApp.Data {
                         {HeaderCharMapPositions.Divider, ' ' },
                             })
                         .ExportAndWriteLine();
-                    //foreach (CodingSession codingSession in codingSessions) {
-                    //    Console.WriteLine($"ID: {codingSession.Id}\t");
-                    //    Console.WriteLine($"Start Time: {codingSession.StartTime}\t");
-                    //    Console.WriteLine($"End Time: {codingSession.EndTime}\t");
-                    //    Console.WriteLine($"Duration: {codingSession.Duration}\n");
-                    //}
                 } else {
                     Console.WriteLine("Nothing to show");
                     Program.MainMenu();
                 }
-            }
-            catch (Exception ex) {
-                Console.WriteLine($"Error in reading coding sessions: {ex.Message}");
-                Program.MainMenu();
-            }
+
         }
 
         public static void DeleteAll() {
