@@ -48,6 +48,7 @@ namespace CodingTrackerConsoleApp {
             };
 
             CodingRepository.Create(codingSession);
+            Id++;
             Program.MainMenu();
         }
     }

@@ -23,7 +23,6 @@ using System.Linq.Expressions;
 
 internal class Program {
     private static void Main(string[] args) {
-        CodingRepository.Init();
         MainMenu();
     }
     public static void MainMenu() {
@@ -43,7 +42,7 @@ internal class Program {
                     CreateCodingSession.CreateSession();
                     break;
                 case 2:
-                    new DeleteCodingSession();
+                    DeleteCodingSession.Delete();
                     break;
                 case 3:
                     ReadCodingSessions.Read();

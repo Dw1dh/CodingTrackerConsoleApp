@@ -17,41 +17,41 @@ namespace CodingTrackerConsoleApp.Data {
         //private static string tableName = "CodingSessions";
         private static List<CodingSession> codingSessions = new List<CodingSession>();
 
-        public static void Init() {
-            //try {
-            //    conn = new SQLiteConnection("Data Source=" + dbFileName + ";Version=3;");
-            //    conn.Open();
-            //    cmd = new SQLiteCommand();
-            //    cmd.Connection = conn;
-            //    Console.WriteLine("Connected");
-            //    CreateTable();
-            //}
-            //catch (SQLiteException ex) {
-            //    Console.WriteLine($"Error: {ex.Message}");
-            //}
+        //public static void Init() {
+        //    //try {
+        //    //    conn = new SQLiteConnection("Data Source=" + dbFileName + ";Version=3;");
+        //    //    conn.Open();
+        //    //    cmd = new SQLiteCommand();
+        //    //    cmd.Connection = conn;
+        //    //    Console.WriteLine("Connected");
+        //    //    CreateTable();
+        //    //}
+        //    //catch (SQLiteException ex) {
+        //    //    Console.WriteLine($"Error: {ex.Message}");
+        //    //}
             
-        }
+        //}
 
-        private static void CreateTable() {
-            try {
-                Console.WriteLine("Table was created");
-            }
-            catch (SQLiteException ex) {
-                Console.WriteLine($"Error in creating a table: {ex.Message}");
-            }
-            //try {
-            //    cmd.CommandText = $"DROP TABLE IF EXISTS {dbFileName};";
-            //    cmd.ExecuteNonQuery();
-            //    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS {tableName}(Id INTEGER PRIMARY KEY AUTOINCREMENT, StartTime TEXT NOT NULL, EndTime TEXT NOT NULL, Duration TEXT NOT NULL)";
-            //    cmd.ExecuteNonQuery();
-            //    Console.WriteLine("Table was initialized");
-            //}
-            //catch (SQLiteException ex) {
-            //    Console.WriteLine($"Error in creating a table: {ex.Message}");
-            //}
+        //private static void CreateTable() {
+        //    try {
+        //        Console.WriteLine("Table was created");
+        //    }
+        //    catch (SQLiteException ex) {
+        //        Console.WriteLine($"Error in creating a table: {ex.Message}");
+        //    }
+        //    //try {
+        //    //    cmd.CommandText = $"DROP TABLE IF EXISTS {dbFileName};";
+        //    //    cmd.ExecuteNonQuery();
+        //    //    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS {tableName}(Id INTEGER PRIMARY KEY AUTOINCREMENT, StartTime TEXT NOT NULL, EndTime TEXT NOT NULL, Duration TEXT NOT NULL)";
+        //    //    cmd.ExecuteNonQuery();
+        //    //    Console.WriteLine("Table was initialized");
+        //    //}
+        //    //catch (SQLiteException ex) {
+        //    //    Console.WriteLine($"Error in creating a table: {ex.Message}");
+        //    //}
 
 
-        }
+        //}
             public static void Create(CodingSession codingSession) {
             try {
                 codingSessions.Add(codingSession);
@@ -67,13 +67,19 @@ namespace CodingTrackerConsoleApp.Data {
             //cmd.CommandText = $"INSERT INTO {tableName} (StartTime, EndTime, Duration) VALUES (:StartTime, :EndTime, :Duration)";
             //cmd.ExecuteNonQuery();
         }
+            public static void Delete(int id) {
+            var codingSession = from c in codingSessions
+                        where c.Id == id
+                        select c;
+            codingSessions.Remove((CodingSession)codingSession);
+        }
         public static void Read() {
             try {
                 foreach (CodingSession codingSession in codingSessions) {
-                    Console.WriteLine($"ID: {codingSession.Id}");
-                    Console.WriteLine($"Start Time: {codingSession.StartTime}");
-                    Console.WriteLine($"End Time: {codingSession.EndTime}");
-                    Console.WriteLine($"Duration: {codingSession.Duration}");
+                    Console.WriteLine($"ID: {codingSession.Id}\n");
+                    Console.WriteLine($"Start Time: {codingSession.StartTime}\n");
+                    Console.WriteLine($"End Time: {codingSession.EndTime}\n");
+                    Console.WriteLine($"Duration: {codingSession.Duration}\n\n");
 
                 }
                 Program.MainMenu();
