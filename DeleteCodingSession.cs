@@ -1,21 +1,24 @@
 ﻿using CodingTrackerConsoleApp.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodingTrackerConsoleApp {
+
     public class DeleteCodingSession {
-        static int Id;
+        private static int Id;
+
         public static void Delete() {
             CodingRepository.Read();
-            Console.WriteLine("Write an id of a coding session, which you would like to delete");
+            Console.WriteLine("Write an id of a coding session, which you would like to delete\nOr write 0 for deleting all");
             try {
                 Id = Convert.ToInt32(Console.ReadLine());
-                CodingRepository.Delete(Id);
+                if (Id == 0) {
+                    CodingRepository.DeleteAll();
+                } else {
+                    CodingRepository.Delete(Id);
+                }
+
                 Program.MainMenu();
-            } catch(Exception ex) {
+            }
+            catch (Exception ex) {
                 Console.WriteLine($"Error in deleting a coding session: {ex.Message}\n Try again");
                 Delete();
             }

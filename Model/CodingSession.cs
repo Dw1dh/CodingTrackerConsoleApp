@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CodingTrackerConsoleApp.Model {
 
-namespace CodingTrackerConsoleApp.Model {
     public class CodingSession {
+
         public int Id {
-        get; set; }
+            get; set;
+        }
+
         public TimeOnly StartTime {
-        get; set; }
+            get; set;
+        }
+
         public TimeOnly EndTime {
-        get; set; }
+            get; set;
+        }
+
         public TimeOnly Duration {
-        get; set; }
+            get; set;
+        }
     }
 }
