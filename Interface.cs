@@ -12,7 +12,6 @@ namespace CodingTrackerConsoleApp {
             Console.WriteLine("---------------------------");
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("0 - Close the application\n1 - Create a coding session\n2 - Delete coding session\n3 - Read coding sessions");
-            try {
                 int userInput = Convert.ToInt32(Console.ReadLine());
                 switch (userInput) {
                     case 0:
@@ -21,24 +20,25 @@ namespace CodingTrackerConsoleApp {
 
                     case 1:
                         CRUDController.Create();
+
                         break;
 
                     case 2:
                         CRUDController.Delete();
-                        break;
+
+                    break;
 
                     case 3:
                         CRUDController.Read();
-                        break;
+
+                    break;
 
                     default:
-                        throw new Exception("Please choose one of the options.");
+                        Console.WriteLine("Please choose one of the options.");
+                        MainMenu();
+                    break;
                 }
-            }
-            catch (Exception ex) {
-                Console.WriteLine($"Error in choice: {ex.Message}\nTry again\n");
-                MainMenu();
-            }
+
         }
     }
 }

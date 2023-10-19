@@ -40,7 +40,6 @@ namespace CodingTrackerConsoleApp.Data {
                         .ExportAndWriteLine();
                 } else {
                     Console.WriteLine("Nothing to show");
-                    Program.MainMenu();
                 }
 
         }

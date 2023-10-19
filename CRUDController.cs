@@ -24,13 +24,13 @@ namespace CodingTrackerConsoleApp {
                 switch (userDecision) {
                     case 1:
                         TimeController.Stopwatch();
-
                         break;
 
                     case 2:
                         TimeController.EnterTime();
                         break;
                 }
+                TimeController.MakeDuration();
                 CodingSession codingSession = new CodingSession {
                     Id = CodingRepository.Id,
                     StartTime = TimeController.startTime,
@@ -40,9 +40,9 @@ namespace CodingTrackerConsoleApp {
 
                 CodingRepository.Create(codingSession);
                 CodingRepository.Id++;
-                Interface.MainMenu();
 
             }
+            Interface.MainMenu();
         }
         public static void Delete() {
             CodingRepository.Read();
@@ -53,7 +53,7 @@ namespace CodingTrackerConsoleApp {
                 } else {
                     CodingRepository.Delete(csId);
                 }
-
+            Interface.MainMenu();
         }
     }
 }
