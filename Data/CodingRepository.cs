@@ -8,8 +8,7 @@ namespace CodingTrackerConsoleApp.Data {
         public static int Id = 1;
 
         public static void Create(CodingSession codingSession) {
-                codingSessions.Add(codingSession);
-
+            codingSessions.Add(codingSession);
         }
 
         public static void Delete(int id) {
@@ -19,12 +18,12 @@ namespace CodingTrackerConsoleApp.Data {
         }
 
         public static void Read() {
-                if (codingSessions.Count > 0) {
-                    ConsoleTableBuilder.From(codingSessions)
-                        .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
-                        .WithCharMapDefinition(
-                            CharMapDefinition.FramePipDefinition,
-                            new Dictionary<HeaderCharMapPositions, char> {
+            if (codingSessions.Count > 0) {
+                ConsoleTableBuilder.From(codingSessions)
+                    .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
+                    .WithCharMapDefinition(
+                        CharMapDefinition.FramePipDefinition,
+                        new Dictionary<HeaderCharMapPositions, char> {
                         {HeaderCharMapPositions.TopLeft, '╒' },
                         {HeaderCharMapPositions.TopCenter, '═' },
                         {HeaderCharMapPositions.TopRight, '╕' },
@@ -36,12 +35,11 @@ namespace CodingTrackerConsoleApp.Data {
                         {HeaderCharMapPositions.BorderBottom, '═' },
                         {HeaderCharMapPositions.BorderLeft, '│' },
                         {HeaderCharMapPositions.Divider, ' ' },
-                            })
-                        .ExportAndWriteLine();
-                } else {
-                    Console.WriteLine("Nothing to show");
-                }
-
+                        })
+                    .ExportAndWriteLine();
+            } else {
+                Console.WriteLine("Nothing to show");
+            }
         }
 
         public static void DeleteAll() {
