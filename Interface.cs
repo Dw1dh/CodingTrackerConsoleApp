@@ -6,7 +6,7 @@
             Console.WriteLine("MAIN MENU");
             Console.WriteLine("---------------------------");
             Console.WriteLine("What would you like to do?");
-            Console.WriteLine("0 - Close the application\n1 - Create a coding session\n2 - Delete coding session\n3 - Update coding sessions\n4 - View coding sessions");
+            Console.WriteLine("0 - Close the application\n1 - Create a coding session\n2 - Delete coding session\n3 - Update coding sessions\n4 - View coding sessions\n5 - Reports");
             int userInput = Convert.ToInt32(Console.ReadLine());
             switch (userInput) {
                 case 0:
@@ -33,6 +33,10 @@
                     DatabaseManager.Read();
                     MainMenu();
 
+                    break;
+                case 5:
+                    DatabaseManager.Reports();
+                    MainMenu();
                     break;
                 default:
                     Console.WriteLine("Please choose one of the options.");

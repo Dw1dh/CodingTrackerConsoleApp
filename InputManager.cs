@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace CodingTrackerConsoleApp {
     public static class InputManager {
-        public static string GetDateInput() {
+        public static DateTime GetDateInput() {
             DateTime date;
             Console.WriteLine("Write a date\nFormat dd.mm.yyyy\nWrite 0 to enter this day");
             string dateInput = Console.ReadLine();
-            //if (Convert.ToInt32(dateInput) == 0) {
-            //    date = DateTime.Now;
-            //} else {
-            //    
-            //}
-            date = DateTime.Parse(dateInput);
-            return date.ToShortDateString();
+            if (dateInput == "0") {
+                date = DateTime.Now;
+            } else {
+                date = DateTime.Parse(dateInput);
+            }
+
+            return date;
         }
-        public static string GetDurationInput() {
+        public static DateTime GetDurationInput() {
             DateTime duration;
             Console.WriteLine("Write a duration\nFormat: hh:mm");
             string durationInput = Console.ReadLine();
             duration = DateTime.Parse(durationInput);
             Console.WriteLine($"Duration: {duration}");
-            return duration.ToShortTimeString();
+            return duration;
         }
         public static int GetIdInput() {
             Console.WriteLine("Write an id");
@@ -35,7 +35,7 @@ namespace CodingTrackerConsoleApp {
             int id = Convert.ToInt32(Console.ReadLine());
             return id;
         }
-        public static string MakeDurationInput() {
+        public static DateTime MakeDurationInput() {
             DateTime startTime = new();
             DateTime endTime = new();
             DateTime duration = new();
@@ -76,9 +76,14 @@ namespace CodingTrackerConsoleApp {
 
             }
             Console.WriteLine($"Duration: {duration.ToShortTimeString()}");
-            return duration.ToShortTimeString();
+            return duration;
 
         }
-
+        public static int GetReportNumber() {
+            Console.WriteLine("Which report would you like to choose:\n1 - Report by day\n2 - Report by month\n3 - Report by year\n4 - Report by duration");
+            int userInput = Convert.ToInt32(Console.ReadLine());
+            return userInput;
+            }
+        }
     }
-}
+
