@@ -15,10 +15,10 @@
 //CODING TRACKER
 
 using CodingTrackerConsoleApp;
-using System.Data.SQLite;
 
 internal class Program {
-    static void Main(string[] args) {
+
+    private static void Main(string[] args) {
         DatabaseManager.CreateDatabase();
     }
 }

@@ -36,7 +36,6 @@
             Console.WriteLine("Write an end time of coding:\nFormat:\thh:mm");
 
             timeEndString = Console.ReadLine();
-            
         }
 
         public static void MakeDuration() {
@@ -50,6 +49,7 @@
             }
             Console.WriteLine($"Duration: {duration}");
         }
+
         public static void MakeDate() {
             Console.WriteLine("Write a date:\nFormat: dd.mm.yyyy\nOr press 0 to write today date");
             string dateInput = Console.ReadLine();
@@ -63,12 +63,10 @@
                 dateTime = DateOnly.Parse(dateInput);
 
                 Console.WriteLine("Another");
-
             }
             date = dateTime.ToShortDateString();
-            
+
             Console.WriteLine($"Date: {dateTime}");
         }
     }
 }
-
