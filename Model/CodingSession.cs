@@ -7,12 +7,13 @@
         }
 
 
-        public TimeOnly Duration {
+        public string Duration {
             get; set;
         }
-        public DateOnly Date {
+        public string Date {
             get;
             set;
         }
+
+        }
     }
-}

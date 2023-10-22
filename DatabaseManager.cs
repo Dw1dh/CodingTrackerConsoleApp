@@ -27,7 +27,8 @@ namespace CodingTrackerConsoleApp {
                 Console.WriteLine($"Ошибка доступа к базе данных. Исключение: {ex.Message}");
             }
         }
-        public static void Delete(int id) {
+        public static void Delete() {
+            int id = InputManager.GetIdInput();
             cmd.CommandText = $"DELETE FROM CodingSessions WHERE Id = {id}";
             cmd.ExecuteNonQuery();
             Console.WriteLine("Deleting was successful");
@@ -37,13 +38,12 @@ namespace CodingTrackerConsoleApp {
             cmd.ExecuteNonQuery();
             Console.WriteLine("Deleting all was successful");
         }
-        public static void Create(CodingSession codingSession) {
-            cmd.CommandText = "INSERT INTO CodingSessions(Duration,Date) VALUES(:Duration,:Date)";
-            cmd.Parameters.AddWithValue(":Duration",
-                codingSession.Duration.ToShortTimeString());
-            cmd.Parameters.AddWithValue(":Date",
-                codingSession.Date.ToShortDateString());
-
+        public static void Create() {
+            string date = InputManager.GetDateInput();
+            string duration = InputManager.MakeDurationInput();
+            cmd.CommandText = $"INSERT INTO CodingSessions(Duration, Date) VALUES(:duration, :date)";
+            cmd.Parameters.AddWithValue(":date", date);
+            cmd.Parameters.AddWithValue(":duration", duration);
             cmd.ExecuteNonQuery();
         }
         public static void Read() {
@@ -55,8 +55,8 @@ namespace CodingTrackerConsoleApp {
                 if (rdr.HasRows) {
                     codingSessions.Add(new CodingSession {
                         Id = rdr.GetInt32(0),
-                        Duration = TimeOnly.Parse(rdr.GetString(1)),
-                        Date = DateOnly.Parse(rdr.GetString(2))
+                        Duration = rdr.GetString(1),
+                        Date = rdr.GetString(2)
                     });
                        
                     }
@@ -87,16 +87,24 @@ namespace CodingTrackerConsoleApp {
             int checkQuery = Convert.ToInt32(cmd.ExecuteScalar());
 
             if (checkQuery == 0) {
-                Console.WriteLine($"\n\nRecord with Id {id} doesn't exist.\n\n");
+                
                 return false;
             } else {
                 return true;
             }
         }
-        public static void Update(DateOnly date, TimeOnly duration,int id) {
-            cmd.CommandText = $"UPDATE CodingSessions SET Date = {date.ToLongDateString}, Duration = {duration.ToShortTimeString}, Id = {id}";
-            cmd.ExecuteNonQuery();
-            Console.WriteLine("Updating was successfully done");
+        public static void Update() {
+            int id = InputManager.GetIdInput();
+            if (CheckExistance(id)) {
+                string date = InputManager.GetDateInput();
+                string duration = InputManager.GetDurationInput();
+                cmd.CommandText = $"UPDATE CodingSessions SET Date = {date}, Duration = {duration}, Id = {id}";
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Updating was successfully done");
+            } else {
+                Console.WriteLine($"\n\nRecord with Id {id} doesn't exist.\n\n");
+            }
+            
         }
     
     }

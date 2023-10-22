@@ -14,21 +14,25 @@
                     break;
 
                 case 1:
-                    CRUDController.Create();
-
+                    DatabaseManager.Create();
+                    MainMenu();
                     break;
 
                 case 2:
-                    CRUDController.Delete();
+                    DatabaseManager.Delete();
+                    MainMenu();
 
                     break;
 
                 case 3:
-                    CRUDController.Update();
+                    DatabaseManager.Update();
+                    MainMenu();
 
                     break;
                 case 4:
-                    CRUDController.Read();
+                    DatabaseManager.Read();
+                    MainMenu();
+
                     break;
                 default:
                     Console.WriteLine("Please choose one of the options.");
