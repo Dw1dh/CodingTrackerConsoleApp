@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ReportsManager.cs~RF2d87970.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ConsoleTableExt" Version="3.2.0" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.12" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />

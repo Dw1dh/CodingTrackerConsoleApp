@@ -1,5 +1,6 @@
 ﻿using CodingTrackerConsoleApp.Model;
 using ConsoleTableExt;
+using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 
@@ -9,19 +10,22 @@ namespace CodingTrackerConsoleApp {
         private static SQLiteCommand cmd;
         public static SQLiteConnection conn;
         public static List<CodingSession> codingSessions = new();
+        private static string connString = ConfigurationManager.AppSettings["ConnectionString"];
         public static void CreateDatabase() {
             try {
-                conn = new SQLiteConnection("Data Source=codingBase.sqlite;Version=3; FailIfMissing=False");
+                conn = new SQLiteConnection(connString);
                 Console.WriteLine("Connected");
                 conn.Open();
                 cmd = new SQLiteCommand(conn);
 
-                //cmd.CommandText = " DROP Table 'CodingSessions'";
+                //cmd.CommandText = " DROP Table 'Goals'";
                 //cmd.ExecuteNonQuery();
 
                 cmd.CommandText = $"CREATE TABLE IF NOT EXISTS CodingSessions(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Duration TEXT NOT NULL,Day INTEGER NOT NULL, Month INTEGER NOT NULL, Year INTEGER NOT NULL)";
                 cmd.ExecuteNonQuery();
-                Console.WriteLine("Table was created");
+                cmd.CommandText = $"CREATE TABLE IF NOT EXISTS Goals(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name TEXT NOT NULL, Time INTEGER NOT NULL)";
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Tables was created");
                 Interface.MainMenu();
             }
             catch (SQLiteException ex) {
@@ -32,7 +36,7 @@ namespace CodingTrackerConsoleApp {
         public static void Delete() {
             Read();
             int id = InputManager.GetIdInput();
-            if (CheckExistance(id)) {
+            if (CheckExistance(id,"CodingSessions")) {
                 cmd.CommandText = $"DELETE FROM CodingSessions WHERE Id = {id}";
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Deleting was successful");
@@ -79,6 +83,9 @@ namespace CodingTrackerConsoleApp {
                 }
             }
             rdr.Close();
+            
+        }
+        public static void Show() {
             ConsoleTableBuilder.From(codingSessions)
                        .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
                        .WithCharMapDefinition(
@@ -98,11 +105,10 @@ namespace CodingTrackerConsoleApp {
                            })
                        .ExportAndWriteLine();
         }
-
         public static void Update() {
             Read();
             int id = InputManager.GetIdInput();
-            if (CheckExistance(id)) {
+            if (CheckExistance(id, "CodingSessions")) {
                 DateTime date = InputManager.GetDateInput();
                 string day = date.Day.ToString();
                 string month = date.Month.ToString();
@@ -122,7 +128,7 @@ namespace CodingTrackerConsoleApp {
             }
         }
 
-        public static bool CheckExistance(int id) {
+        public static bool CheckExistance(int id, string tableName) {
             cmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM CodingSessions WHERE Id = {id})";
             int checkQuery = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -167,7 +173,15 @@ namespace CodingTrackerConsoleApp {
                     break;
             }
         }
-
+        public static bool CheckGoalsExistance() {
+            cmd.CommandText = "SELECT * FROM Goals";
+            var rdr = cmd.ExecuteReader();
+            if (rdr.HasRows) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         
     }
 }

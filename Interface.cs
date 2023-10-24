@@ -6,7 +6,7 @@
             Console.WriteLine("MAIN MENU");
             Console.WriteLine("---------------------------");
             Console.WriteLine("What would you like to do?");
-            Console.WriteLine("0 - Close the application\n1 - Create a record\n2 - Delete a record\n3 - Delete all records\n4 - Update a record\n5 - View records\n6 - Reports");
+            Console.WriteLine("0 - Close the application\n1 - Create a record\n2 - Delete a record\n3 - Delete all records\n4 - Update a record\n5 - View records\n6 - Other features");
             int userInput = Convert.ToInt32(Console.ReadLine());
             switch (userInput) {
                 case 0:
@@ -37,6 +37,7 @@
 
                 case 5:
                     DatabaseManager.Read();
+                    DatabaseManager.Show();
                     MainMenu();
 
                     break;

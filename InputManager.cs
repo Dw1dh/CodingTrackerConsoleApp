@@ -76,7 +76,7 @@ namespace CodingTrackerConsoleApp {
         }
 
         public static int GetReportNumber() {
-            Console.WriteLine("Which report would you like to choose:\n1 - Report by day\n2 - Report by month\n3 - Report by year\n4 - Report by duration\n5 - Report total duration\n6 - Report goals\n0 - Back to main menu");
+            Console.WriteLine("Which report would you like to choose:\n1 - View records by day\n2 - View records by month\n3 - View records by year\n4 - View records by duration\n5 - View total duration\n6 - Goals\n0 - Back to main menu");
             int userInput = Convert.ToInt32(Console.ReadLine());
             return userInput;
         }

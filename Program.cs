@@ -1,18 +1,18 @@
-﻿//using System.Configuration;
-//using System.Collections.Specialized;
-//string sAttr;
-//sAttr = ConfigurationManager.AppSettings.Get("Key0"); //Only one key-value
-//Console.WriteLine("The value of Key0 is " + sAttr);
-//NameValueCollection sAll;
-//sAll = ConfigurationManager.AppSettings; //All keys-values
-//foreach (string s in sAll.AllKeys)
-//    Console.WriteLine("Key: " + s + " Value: " + sAll.Get(s));
+﻿//using system.configuration;
+//using system.collections.specialized;
+//string sattr;
+//sattr = configurationmanager.appsettings.get("key0"); //only one key-value
+//console.writeline("the value of key0 is " + sattr);
+//namevaluecollection sall;
+//sall = configurationmanager.appsettings; //all keys-values
+//foreach (string s in sall.allkeys)
+//    console.writeline("key: " + s + " value: " + sall.get(s));
 
-//Console.ReadLine();
+//console.readline();
 
-//EXAMPLE OF CONFIGURATION FILE IN C#
+//example of configuration file in c#
 
-//CODING TRACKER
+//coding tracker
 
 using CodingTrackerConsoleApp;
 
