@@ -1,13 +1,114 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Data.Entity.Infrastructure;
 using System.Globalization;
-using static CodingTrackerConsoleApp.ReportsManager;
 
 namespace CodingTrackerConsoleApp {
 
     public static class InputManager {
+        public static int GetIntUserInput() {
+            bool isAgain = true;
+            int intUserInput = new();
+            while(isAgain) {
+                try {
+                    intUserInput = Convert.ToInt32(Console.ReadLine());
+                    isAgain = false;
 
+                }
+                catch (Exception e) {
+                    Console.WriteLine("Enter an int value");
+                    
+                }
+                
+                
+            }
+            return intUserInput;
+            
+            
+        }
+        public static string GetStringUserInput() {
+            bool isAgain = true;
+            string stringUserInput = null;
+            while (isAgain) {
+                try {
+                    stringUserInput = Console.ReadLine();
+                    isAgain = false;
+                    if(String.IsNullOrEmpty(stringUserInput)) {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception e) {
+                    Console.WriteLine("Enter an string value");
+                }
+
+
+            }
+            return stringUserInput;
+        }
         public static DateTime GetDateInput() {
+            DateTime date = new();
+            bool isAgain = true;
+            string dateInput = null;
+            while (isAgain) {
+                try {
+                    Console.WriteLine("Write a date\t Format: dd.mm.yyyy");
+                    dateInput = Console.ReadLine();
+                    
+                    if (String.IsNullOrEmpty(dateInput)) {
+                        throw new Exception();
+                    } else {
+                        date = DateTime.Parse(dateInput);
+                        isAgain = false;
+                    }
+
+                }
+                catch (Exception e) {
+                    Console.WriteLine($"Error:  {e.Message}");
+
+                }
+            }
+            return date;
+        }
+        public static DateTime GetTimeInput() {
+            DateTime time = new();
+            bool isAgain = true;
+            string timeInput = null;
+            while (isAgain) {
+                try {
+                    Console.WriteLine("Enter a time\t Format hh:mm");    
+                    timeInput = Console.ReadLine();
+                    isAgain = false;
+                    if (String.IsNullOrEmpty(timeInput)) {
+                        throw new Exception();
+                    } else {
+                        time = DateTime.Parse(timeInput);
+                    }
+
+                }
+                catch (Exception e) {
+                    Console.WriteLine($"Error:  {e.Message}");
+
+                }
+            }
+            return time;
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public static DateTime GetDateInput2() {
             DateTime date;
             Console.WriteLine("Write a date\nFormat dd.mm.yyyy\nWrite 0 to enter this day");
             string dateInput = Console.ReadLine();
@@ -19,7 +120,6 @@ namespace CodingTrackerConsoleApp {
 
             return date;
         }
-
         public static DateTime GetDurationInput() {
             DateTime duration;
             Console.WriteLine("Write a duration\nFormat: hh:mm");
@@ -27,13 +127,6 @@ namespace CodingTrackerConsoleApp {
             duration = DateTime.Parse(durationInput);
             Console.WriteLine($"Duration: {duration}");
             return duration;
-        }
-
-        public static int GetIdInput() {
-            Console.WriteLine("Write an id");
-
-            int id = Convert.ToInt32(Console.ReadLine());
-            return id;
         }
 
         public static DateTime MakeDurationInput() {
@@ -61,11 +154,11 @@ namespace CodingTrackerConsoleApp {
                         CultureInfo provider = new CultureInfo("en-US");
                         Console.WriteLine("Write a start time of coding:\nFormat:\thh:mm");
                         startTime = DateTime.Parse(Console.ReadLine());
-                        
+
                         Console.WriteLine($"StartTime:{startTime}");
                         Console.WriteLine("Write an end time of coding:\nFormat:\thh:mm");
                         endTime = DateTime.Parse(Console.ReadLine());
-                        
+
                         Console.WriteLine($"EndTime:{endTime}");
                         break;
                 }
@@ -80,11 +173,13 @@ namespace CodingTrackerConsoleApp {
             int userInput = Convert.ToInt32(Console.ReadLine());
             return userInput;
         }
+
         public static string GetNameGoalInput() {
             Console.WriteLine("Name your goal");
             string goalName = Console.ReadLine();
             return goalName;
         }
+
         public static int GetTimeGoalInput() {
             Console.WriteLine("Put the amount of hours to achieve this goal");
             int progress = Convert.ToInt32(Console.ReadLine());

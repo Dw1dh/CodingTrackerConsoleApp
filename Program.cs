@@ -19,6 +19,7 @@ using CodingTrackerConsoleApp;
 internal class Program {
 
     private static void Main(string[] args) {
-        DatabaseManager.CreateDatabase();
+        DatabaseManager.Init();
+        Interface.MainMenu();
     }
 }

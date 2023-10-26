@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CodingTrackerConsoleApp.Model {
 
-namespace CodingTrackerConsoleApp.Model {
     public class Goal {
+
         public int Id {
-        get; set; }
+            get; set;
+        }
+
         public string Name {
             get; set;
         }
+
         public int Time {
             get; set;
         }

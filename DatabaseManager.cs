@@ -1,7 +1,6 @@
 ﻿using CodingTrackerConsoleApp.Model;
 using ConsoleTableExt;
 using System.Configuration;
-using System.Data;
 using System.Data.SQLite;
 
 namespace CodingTrackerConsoleApp {
@@ -11,124 +10,44 @@ namespace CodingTrackerConsoleApp {
         public static SQLiteConnection conn;
         public static List<CodingSession> codingSessions = new();
         private static string connString = ConfigurationManager.AppSettings["ConnectionString"];
-        public static void CreateDatabase() {
+
+        /// <summary>
+        /// Initializing a database manager
+        /// </summary>
+        public static void Init() {
             try {
                 conn = new SQLiteConnection(connString);
                 Console.WriteLine("Connected");
                 conn.Open();
                 cmd = new SQLiteCommand(conn);
-
-                //cmd.CommandText = " DROP Table 'Goals'";
-                //cmd.ExecuteNonQuery();
-
-                cmd.CommandText = $"CREATE TABLE IF NOT EXISTS CodingSessions(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Duration TEXT NOT NULL,Day INTEGER NOT NULL, Month INTEGER NOT NULL, Year INTEGER NOT NULL)";
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = $"CREATE TABLE IF NOT EXISTS Goals(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name TEXT NOT NULL, Time INTEGER NOT NULL)";
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("Tables was created");
-                Interface.MainMenu();
+                CodingSessionsManager.Init();
+                GoalManager.Init();
             }
             catch (SQLiteException ex) {
                 Console.WriteLine($"Ошибка доступа к базе данных. Исключение: {ex.Message}");
             }
-        }
 
-        public static void Delete() {
-            Read();
-            int id = InputManager.GetIdInput();
-            if (CheckExistance(id,"CodingSessions")) {
-                cmd.CommandText = $"DELETE FROM CodingSessions WHERE Id = {id}";
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("Deleting was successful");
-            } else {
-                Console.WriteLine($"\nRecord with Id {id} doesn't exist.\n");
-            }
         }
+        
 
-        public static void DeleteAll() {
-            cmd.CommandText = "DELETE FROM CodingSessions";
+        /// <summary>
+        /// Deleting all function
+        /// </summary>
+        /// <param name="tableName"></param>
+        public static void DeleteAll(string tableName) {
+            cmd.CommandText = $"DELETE FROM {tableName}";
             cmd.ExecuteNonQuery();
-            Console.WriteLine("Deleting all was successful");
+            Console.WriteLine("Deleting all");
         }
+       
 
-        public static void Create() {
-            DateTime date = InputManager.GetDateInput();
-            int day = date.Day;
-            int month = date.Month;
-            int year = date.Year;
-            string duration = InputManager.MakeDurationInput().ToShortTimeString();
-            cmd.CommandText = $"INSERT INTO CodingSessions(Duration, Day, Month, Year) VALUES(:duration, :day, :month, :year)";
-            cmd.Parameters.AddWithValue(":day", day);
-            cmd.Parameters.AddWithValue(":month", month);
-            cmd.Parameters.AddWithValue(":year", year);
-            cmd.Parameters.AddWithValue(":duration", duration);
-            cmd.ExecuteNonQuery();
-        }
-
-        public static void Read() {
-            codingSessions = new List<CodingSession>();
-            cmd.CommandText = "SELECT * FROM CodingSessions";
-            var rdr = cmd.ExecuteReader();
-            while (rdr.Read()) {
-                if (rdr.HasRows) {
-                    codingSessions.Add(new CodingSession {
-                        Id = rdr.GetInt32(0),
-                        Duration = rdr.GetString(1),
-                        Day = rdr.GetInt32(2),
-                        Month = rdr.GetInt32(3),
-                        Year = rdr.GetInt32(4)
-                    });
-                } else {
-                    Console.WriteLine("No records");
-                }
-            }
-            rdr.Close();
-            
-        }
-        public static void Show() {
-            ConsoleTableBuilder.From(codingSessions)
-                       .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
-                       .WithCharMapDefinition(
-                           CharMapDefinition.FramePipDefinition,
-                           new Dictionary<HeaderCharMapPositions, char> {
-                        {HeaderCharMapPositions.TopLeft, '╒' },
-                        {HeaderCharMapPositions.TopCenter, '═' },
-                        {HeaderCharMapPositions.TopRight, '╕' },
-                        {HeaderCharMapPositions.BottomLeft, '╞' },
-                        {HeaderCharMapPositions.BottomCenter, '╤' },
-                        {HeaderCharMapPositions.BottomRight, '╡' },
-                        {HeaderCharMapPositions.BorderTop, '═' },
-                        {HeaderCharMapPositions.BorderRight, '│' },
-                        {HeaderCharMapPositions.BorderBottom, '═' },
-                        {HeaderCharMapPositions.BorderLeft, '│' },
-                        {HeaderCharMapPositions.Divider, ' ' },
-                           })
-                       .ExportAndWriteLine();
-        }
-        public static void Update() {
-            Read();
-            int id = InputManager.GetIdInput();
-            if (CheckExistance(id, "CodingSessions")) {
-                DateTime date = InputManager.GetDateInput();
-                string day = date.Day.ToString();
-                string month = date.Month.ToString();
-                string year = date.Year.ToString();
-                string duration = InputManager.GetDurationInput().ToShortTimeString();
-
-                cmd.CommandText = $"UPDATE CodingSessions SET Duration = :duration, Day = :day, Month = :month, Year = :year WHERE Id = :id";
-                cmd.Parameters.AddWithValue(":id", id);
-                cmd.Parameters.AddWithValue(":day", day);
-                cmd.Parameters.AddWithValue(":month", month);
-                cmd.Parameters.AddWithValue(":year", year);
-                cmd.Parameters.AddWithValue(":duration", duration);
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("Updating was successfully done");
-            } else {
-                Console.WriteLine($"\nRecord with Id {id} doesn't exist.\n");
-            }
-        }
-
-        public static bool CheckExistance(int id, string tableName) {
+        /// <summary>
+        /// Checking id existence
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public static bool CheckIdExistance(int id, string tableName) {
             cmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM CodingSessions WHERE Id = {id})";
             int checkQuery = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -139,42 +58,13 @@ namespace CodingTrackerConsoleApp {
             }
         }
 
-        public static void Reports() {
-            int report = InputManager.GetReportNumber();
-            switch (report) {
-                case 0:
-                    Interface.MainMenu();
-                    break;
-
-                case 1:
-                    ReportsManager.ReportByDay();
-                    break;
-
-                case 2:
-                    ReportsManager.ReportByMonth();
-                    break;
-
-                case 3:
-                    ReportsManager.ReportByYear();
-                    break;
-
-                case 4:
-                    ReportsManager.ReportByDuration();
-                    break;
-                    case 5:
-                    ReportsManager.ReportTotal();
-                    break;
-                case 6:
-                    ReportsManager.ReportGoals();
-                    break;
-                default:
-                    Console.WriteLine("Choose something");
-                    Reports();
-                    break;
-            }
-        }
-        public static bool CheckGoalsExistance() {
-            cmd.CommandText = "SELECT * FROM Goals";
+        /// <summary>
+        /// Checking database existence for reading and showing
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public static bool CheckExistance(string tableName) {
+            cmd.CommandText = $"SELECT * FROM {tableName}";
             var rdr = cmd.ExecuteReader();
             if (rdr.HasRows) {
                 return true;
@@ -182,6 +72,5 @@ namespace CodingTrackerConsoleApp {
                 return false;
             }
         }
-        
     }
-}
+} 
