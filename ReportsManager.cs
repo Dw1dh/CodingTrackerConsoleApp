@@ -26,7 +26,25 @@ namespace CodingTrackerConsoleApp {
                 }
             }
             rdr.Close();
-            CodingSessionsManager.Show();
+            ConsoleTableBuilder.From(CodingSessionsManager.codingSessions)
+                       .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
+                       .WithCharMapDefinition(
+                           CharMapDefinition.FramePipDefinition,
+                           new Dictionary<HeaderCharMapPositions, char> {
+                        {HeaderCharMapPositions.TopLeft, '╒' },
+                        {HeaderCharMapPositions.TopCenter, '═' },
+                        {HeaderCharMapPositions.TopRight, '╕' },
+                        {HeaderCharMapPositions.BottomLeft, '╞' },
+                        {HeaderCharMapPositions.BottomCenter, '╤' },
+                        {HeaderCharMapPositions.BottomRight, '╡' },
+                        {HeaderCharMapPositions.BorderTop, '═' },
+                        {HeaderCharMapPositions.BorderRight, '│' },
+                        {HeaderCharMapPositions.BorderBottom, '═' },
+                        {HeaderCharMapPositions.BorderLeft, '│' },
+                        {HeaderCharMapPositions.Divider, ' ' },
+                           })
+                       .ExportAndWriteLine();
+            Console.WriteLine("AAA");
         }
 
         /// <summary>
@@ -48,7 +66,24 @@ namespace CodingTrackerConsoleApp {
                 }
             }
             rdr.Close();
-            CodingSessionsManager.Show();
+            ConsoleTableBuilder.From(CodingSessionsManager.codingSessions)
+                       .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
+                       .WithCharMapDefinition(
+                           CharMapDefinition.FramePipDefinition,
+                           new Dictionary<HeaderCharMapPositions, char> {
+                        {HeaderCharMapPositions.TopLeft, '╒' },
+                        {HeaderCharMapPositions.TopCenter, '═' },
+                        {HeaderCharMapPositions.TopRight, '╕' },
+                        {HeaderCharMapPositions.BottomLeft, '╞' },
+                        {HeaderCharMapPositions.BottomCenter, '╤' },
+                        {HeaderCharMapPositions.BottomRight, '╡' },
+                        {HeaderCharMapPositions.BorderTop, '═' },
+                        {HeaderCharMapPositions.BorderRight, '│' },
+                        {HeaderCharMapPositions.BorderBottom, '═' },
+                        {HeaderCharMapPositions.BorderLeft, '│' },
+                        {HeaderCharMapPositions.Divider, ' ' },
+                           })
+                       .ExportAndWriteLine();
         }
 
         
@@ -72,7 +107,24 @@ namespace CodingTrackerConsoleApp {
             }
             rdr.Close();
 
-            CodingSessionsManager.Show();
+            ConsoleTableBuilder.From(CodingSessionsManager.codingSessions)
+                       .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
+                       .WithCharMapDefinition(
+                           CharMapDefinition.FramePipDefinition,
+                           new Dictionary<HeaderCharMapPositions, char> {
+                        {HeaderCharMapPositions.TopLeft, '╒' },
+                        {HeaderCharMapPositions.TopCenter, '═' },
+                        {HeaderCharMapPositions.TopRight, '╕' },
+                        {HeaderCharMapPositions.BottomLeft, '╞' },
+                        {HeaderCharMapPositions.BottomCenter, '╤' },
+                        {HeaderCharMapPositions.BottomRight, '╡' },
+                        {HeaderCharMapPositions.BorderTop, '═' },
+                        {HeaderCharMapPositions.BorderRight, '│' },
+                        {HeaderCharMapPositions.BorderBottom, '═' },
+                        {HeaderCharMapPositions.BorderLeft, '│' },
+                        {HeaderCharMapPositions.Divider, ' ' },
+                           })
+                       .ExportAndWriteLine();
         }
 
 

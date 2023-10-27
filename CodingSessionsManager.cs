@@ -62,16 +62,29 @@ namespace CodingTrackerConsoleApp {
                     startTime = StopWatchStart();
                     endTime = StopWatchEnd();
                     date = DateTime.Now;
+                    day = date.Day;
+                    month = date.Month;
+                    year = date.Year;
+                    break;
+                default:
+                    Console.WriteLine("Choose something from the above");
+                    Create();
                     break;
             }
             
             string duration = MakeDuration(startTime, endTime).ToShortTimeString();
-            cmd.CommandText = $"INSERT INTO CodingSessions(Duration, Day, Month, Year) VALUES(:duration, :day, :month, :year)";
-            cmd.Parameters.AddWithValue(":day", day);
-            cmd.Parameters.AddWithValue(":month", month);
-            cmd.Parameters.AddWithValue(":year", year);
-            cmd.Parameters.AddWithValue(":duration", duration);
-            cmd.ExecuteNonQuery();
+            if (duration != DateTime.Parse("0:00").ToShortTimeString()) {
+                Console.WriteLine($"Duration = {duration}");
+                cmd.CommandText = $"INSERT INTO CodingSessions(Duration, Day, Month, Year) VALUES(:duration, :day, :month, :year)";
+                cmd.Parameters.AddWithValue(":day", day);
+                cmd.Parameters.AddWithValue(":month", month);
+                cmd.Parameters.AddWithValue(":year", year);
+                cmd.Parameters.AddWithValue(":duration", duration);
+                cmd.ExecuteNonQuery();
+            } else {
+                Console.WriteLine("Duration is 0:00. Record won't create");
+            }
+            
         }
 
         
@@ -79,13 +92,17 @@ namespace CodingTrackerConsoleApp {
         /// Update a record
         /// </summary>
         public static void Update() {
+            Read();
+            Show();
             Console.WriteLine("Id");
             int id = InputManager.GetIntUserInput();
             if (DatabaseManager.CheckIdExistance(id, "CodingSessions")) {
+                Console.WriteLine("Date");
                 DateTime date = InputManager.GetDateInput();
                 int day = date.Day;
                 int month = date.Month;
                 int year = date.Year;
+                Console.WriteLine("Duration");
                 string duration = InputManager.GetTimeInput().ToShortTimeString();
 
                 cmd.CommandText = $"UPDATE CodingSessions SET Duration = :duration, Day = :day, Month = :month, Year = :year WHERE Id = :id";
@@ -129,6 +146,7 @@ namespace CodingTrackerConsoleApp {
         /// Show records
         /// </summary>
         public static void Show() {
+            Read();
             ConsoleTableBuilder.From(codingSessions)
                        .WithCharMapDefinition(CharMapDefinition.FramePipDefinition)
                        .WithCharMapDefinition(
@@ -158,7 +176,7 @@ namespace CodingTrackerConsoleApp {
             Console.WriteLine($"1 - Delete all goals\n2 - Delete a specific goal");
             int userInput = InputManager.GetIntUserInput();
             switch (userInput) {
-                case 1:
+                case 2:
                     Console.WriteLine("Id");
                     int id = InputManager.GetIntUserInput();
                     if (DatabaseManager.CheckIdExistance(id, "CodingSessions")) {
@@ -169,8 +187,12 @@ namespace CodingTrackerConsoleApp {
                     }
                     break;
 
-                case 2:
+                case 1:
                     DatabaseManager.DeleteAll("CodingSessions");
+                    break;
+                default:
+                    Console.WriteLine("Choose something from the above");
+                    Delete();
                     break;
             }
         }

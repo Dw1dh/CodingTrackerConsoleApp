@@ -15,7 +15,7 @@ namespace CodingTrackerConsoleApp {
                 }
                 catch (Exception e) {
                     Console.WriteLine("Enter an int value");
-                    
+                    isAgain = true;
                 }
                 
                 
@@ -30,13 +30,16 @@ namespace CodingTrackerConsoleApp {
             while (isAgain) {
                 try {
                     stringUserInput = Console.ReadLine();
-                    isAgain = false;
-                    if(String.IsNullOrEmpty(stringUserInput)) {
+                    
+                    if (String.IsNullOrEmpty(stringUserInput)) {
                         throw new Exception();
+                    } else {
+                        isAgain = false;
                     }
                 }
                 catch (Exception e) {
                     Console.WriteLine("Enter an string value");
+                    isAgain = true;
                 }
 
 
@@ -62,7 +65,7 @@ namespace CodingTrackerConsoleApp {
                 }
                 catch (Exception e) {
                     Console.WriteLine($"Error:  {e.Message}");
-
+                    isAgain = true;
                 }
             }
             return date;
@@ -75,17 +78,18 @@ namespace CodingTrackerConsoleApp {
                 try {
                     Console.WriteLine("Enter a time\t Format hh:mm");    
                     timeInput = Console.ReadLine();
-                    isAgain = false;
+                    
                     if (String.IsNullOrEmpty(timeInput)) {
                         throw new Exception();
                     } else {
+                        isAgain = false;
                         time = DateTime.Parse(timeInput);
                     }
 
                 }
                 catch (Exception e) {
                     Console.WriteLine($"Error:  {e.Message}");
-
+                    isAgain = true;
                 }
             }
             return time;

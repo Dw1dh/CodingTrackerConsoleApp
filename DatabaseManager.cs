@@ -67,10 +67,13 @@ namespace CodingTrackerConsoleApp {
             cmd.CommandText = $"SELECT * FROM {tableName}";
             var rdr = cmd.ExecuteReader();
             if (rdr.HasRows) {
+                rdr.Close();
                 return true;
             } else {
+                rdr.Close();
                 return false;
             }
+            
         }
     }
 } 

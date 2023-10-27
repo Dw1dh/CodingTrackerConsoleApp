@@ -15,6 +15,7 @@ namespace CodingTrackerConsoleApp {
             //cmd.CommandText = " DROP Table 'Goals'";
             //cmd.ExecuteNonQuery();
             cmd.CommandText = $"CREATE TABLE IF NOT EXISTS Goals(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name TEXT NOT NULL, Time INTEGER NOT NULL)";
+            Console.WriteLine("Table Goals was created");
             cmd.ExecuteNonQuery();
         }
 
@@ -85,6 +86,7 @@ namespace CodingTrackerConsoleApp {
 
         public static void Update() {
             Read();
+            Show();
             Console.WriteLine("Id");
             int id = InputManager.GetIntUserInput();
             if (DatabaseManager.CheckIdExistance(id, "Goals")) {
